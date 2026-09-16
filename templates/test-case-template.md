@@ -15,10 +15,13 @@ Typical fields:
 - Actual
 - Assign Android
 - Assign iOS
+- Assign Web
 - Status Android
 - Status iOS
+- Status Web
 - Evidence Android
 - Evidence iOS
+- Evidence Web
 - Link Jira
 - Notes
 
