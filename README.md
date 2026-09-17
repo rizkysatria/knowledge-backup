@@ -1,14 +1,37 @@
-# QA Engineering Knowledge Base
+# QA Engineering Pack
 
-Reusable skills, rules, context, and templates for QA engineering and AI-assisted testing workflows.
+Reusable QA Engineering knowledge base for agent-based QA work.
 
 ## Structure
 
 ```text
-context/    Background and engineering context
-skills/     Task-specific methods
-rules/      Mandatory standards and quality gates
-templates/  Output formats
+.
+├── AGENT.md
+├── README.md
+├── rules/
+├── skills/
+├── templates/
+└── context/
 ```
 
-The repository is intentionally product-agnostic. Project-specific structures, screen names, business rules, credentials, URLs, and implementation details belong in the target project, not here.
+## Rules
+
+Mandatory constraints, routing, quality gates, naming, and task-specific rules.
+
+## Skills
+
+Task-specific QA generation, automation, mobile automation, WBS, documentation, and AI workflow guidance.
+
+## Templates
+
+Canonical output schemas and templates.
+
+## Context
+
+Background material from the QA Pack.
+
+## Agent Entry Point
+
+Read `AGENT.md` first. It defines how an agent should load and apply this repository.
+
+The current task source remains the primary source of truth for task-specific requirements and behavior.

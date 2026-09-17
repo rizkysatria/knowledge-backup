@@ -1,100 +1,74 @@
-# QA Engineering Knowledge Base
-
-Read this file first.
+# QA Engineering Pack — Agent Instructions
 
 ## Purpose
 
-This repository is a reusable QA engineering knowledge base for generating test cases, designing automation, analyzing automation results, documenting frameworks, and supporting AI-assisted QA workflows.
+This repository is the reusable QA Engineering knowledge base for agent-based QA work.
 
-## How to use the knowledge base
+## Rule Precedence
 
-1. Identify the task.
-2. Load only the relevant context.
-3. Load the relevant skill(s).
-4. Load the relevant rule(s).
-5. Use the applicable template when one exists.
-6. Generate the output.
-7. Run the relevant validation / quality gate before finalizing.
+Apply precedence in this order:
 
-## Layer responsibilities
+1. Explicit current user instruction
+2. Current task source / requirement / design / application behavior
+3. Applicable project context
+4. QA Pack knowledge base
+5. Generic domain assumptions
 
-- `context/` = background knowledge and established project-agnostic engineering context.
-- `skills/` = how to perform a task.
-- `rules/` = mandatory constraints, standards, and quality gates.
-- `templates/` = expected output structure.
+Never invent requirements, UI behavior, business rules, exact validation limits, screens, flows, test results, evidence, metadata, or implementation details.
 
-## Core principles
+## Repository Structure
 
-- Use the provided source as the primary source of truth.
-- Do not invent requirements, UI behavior, test results, data, or implementation details.
-- Prefer complete meaningful coverage over a large number of shallow test cases.
-- Keep responsibilities separated and reusable.
-- Preserve user-provided templates unless a redesign is explicitly requested.
-- Keep artifacts traceable to their source.
-- When information is missing, mark it as unknown or requirement-dependent instead of guessing.
+- `rules/` — mandatory constraints, standards, quality gates, routing, naming, and task-specific rules.
+- `skills/` — task-specific methods and generation/engineering guidance.
+- `templates/` — canonical output schemas and templates.
+- `context/` — QA Pack background/context material.
 
-## Task routing
+## Loading Strategy
 
-### Test case generation
+Read `rules/MASTER_INSTRUCTIONS.md` first. Then load only the files relevant to the current task.
 
-Read:
-- `context/qa-engineering.md` when general QA context is needed.
-- `context/mobile-automation.md` for mobile-specific behavior.
-- `skills/qa-test-case-generation.md`.
-- `rules/qa-test-case-generation.md`.
-- `templates/test-case-template.md` when an output template is required.
+### Create Test Case
 
-### Automation design / implementation
+Load:
 
-Read:
-- `context/automation-architecture.md`.
-- `context/mobile-automation.md` for mobile work.
-- `skills/automation-architecture.md` and/or `skills/mobile-katalon-appium.md`.
-- `rules/automation.md` and applicable platform rules.
+- `rules/MASTER_INSTRUCTIONS.md`
+- `rules/CREATE_TEST_CASE_RULES.md`
+- `skills/QA_TEST_CASE_GENERATION.md`
+- `skills/AI_GENERATOR.md`
+- `templates/TEMPLATES.md`
+- Current task source / requirement / design
 
-### CI/CD
+### WBS / Figma / SVG
 
-Read:
-- `context/ci-cd.md`.
-- `skills/jenkins-ci-cd.md`.
-- `rules/jenkins.md`.
+Load the applicable WBS skill and template plus the current source.
 
-### Reporting / log analysis
+### Automation / Mobile Automation
 
-Read:
-- `context/reporting.md`.
-- `skills/reporting-dashboard-log-analysis.md`.
-- `rules/reporting.md`.
+Load the applicable automation skill, mobile skill, rules, naming/output guidance, and current source.
 
-### Documentation / handover
+## Test Case Contract
 
-Read:
-- `context/documentation.md`.
-- `skills/documentation-handover.md`.
-- `rules/documentation.md`.
+For every test case:
 
-### AI automation / source-to-artifact workflow
+`Entry Point → Full Required Journey → Target Action → Expected Outcome`
 
-Read:
-- `context/ai-generator.md`.
-- `skills/ai-automation-generator.md`.
-- applicable AI rules.
+Step must start from the applicable journey entry point and include all source-defined navigation and user actions required to reach the target scenario. Do not shortcut the journey.
 
-### Figma / SVG to WBS
+Pre-condition contains only state/data/setup already true before execution.
 
-Read:
-- `skills/figma-to-wbs.md`.
-- `rules/ai-generator.md` where applicable.
-- `templates/wbs-output-template.md`.
+Expected contains the observable system result/behavior caused by the Step and is written in Bahasa Indonesia unless explicitly requested otherwise.
 
-## Precedence
+Before delivery, perform the required second coverage review and validate the applicable template/schema.
 
-Use this order when sources conflict:
+## General Agent Rules
 
-1. Explicit current user instruction.
-2. Current task source / requirement / design / application behavior.
-3. Applicable project context explicitly supplied for the task.
-4. This knowledge base.
-5. Generic domain assumptions.
+- Use the current task source as the primary source for task-specific behavior.
+- Keep business behavior separate from implementation details.
+- Preserve canonical templates and schemas.
+- Keep execution-only fields blank for unexecuted cases.
+- Do not use an existing artifact as a hidden content template unless explicitly requested.
+- Prefer the narrowest responsible layer when changing automation behavior.
 
-Never use a generic assumption to override explicit source evidence.
+## Maintenance
+
+When a canonical rule changes, update dependent references consistently. Avoid duplicate or contradictory rules.
