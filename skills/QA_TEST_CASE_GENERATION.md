@@ -290,7 +290,38 @@ Keep test cases independent where practical. Document unavoidable dependencies i
 
 ## 8. Gherkin
 
-Gherkin must stay aligned with Scenario, Step, and Expected. Gherkin should express behavior, not implementation details.
+Gherkin must stay aligned with Scenario, Step, and Expected.
+Gherkin should express business behavior and remain suitable for automation scripting. It must not contain implementation details such as locators, XPath, resource-id, API calls, framework methods, or code structure.
+
+### Gherkin Purpose
+
+Gherkin represents the business flow of a test case from the applicable Feature entry point through the completion of the scenario.
+Gherkin should provide enough detail for automation scripting and Step Definition mapping, while remaining more concise and business-readable than the detailed Step.
+Gherkin is not a copy of Step.
+
+The relationship is:
+`Step = detailed executable test journey`
+`Gherkin = concise business flow derived from the Step`
+
+### Gherkin Entry Point
+
+`Given` must represent the applicable Feature or flow entry point.
+The Feature entry point is the state where the Gherkin scenario begins.
+For scenarios belonging to the same Feature entry point, use a consistent `Given` whenever the starting state is the same.
+Do not use `Given` to repeat the complete navigation required to reach the Feature entry point.
+For example, if the applicable Feature starts from a specific screen, the Gherkin should start from that screen:
+
+### Gherkin Structure
+
+Use the following structure:
+
+```text
+Given <stable Feature / flow entry point>
+When <primary user action>
+And <required subsequent user action>
+And <required subsequent user action>
+Then <observable system outcome>
+```
 
 ## 9. Security
 
@@ -341,22 +372,20 @@ Example:
 
 Bad:
 Pre-condition:
-"Nasabah sudah berada di halaman Tentukan Target dan Periode dan sudah
-memilih Menabung dengan Target."
+"Pengguna sudah berada di halaman tujuan dan sudah memilih opsi tertentu."
 
 Step:
-"Isi Nama Tabungan..."
-
+"Pengguna mengisi data."
 Better when the journey is part of the scenario:
 
 Pre-condition:
-"Nasabah sudah login dan memiliki akses ke Tabungan Rencana."
+"Pengguna memiliki akses ke fitur yang diuji."
 
 Step:
-1. Pengguna memilih Tabungan Rencana
-2. Pengguna memilih tujuan menabung
-3. Pengguna memilih Menabung dengan Target
-4. Pengguna mengisi Nama Tabungan
+1. Pengguna membuka fitur yang dituju.
+2. Pengguna memilih opsi yang diperlukan.
+3. Pengguna mengisi data yang dibutuhkan.
+4. Pengguna menekan tombol untuk melanjutkan.
 ...
 
 ### Step
