@@ -313,14 +313,46 @@ For example, if the applicable Feature starts from a specific screen, the Gherki
 
 ### Gherkin Structure
 
-Use the following structure:
+Gherkin should represent the business flow from the applicable Feature entry point through the scenario outcome.
+Use the following example as the reference for converting Step into Gherkin.
+
+#### Example
+Step:
 
 ```text
-Given <stable Feature / flow entry point>
-When <primary user action>
-And <required subsequent user action>
-And <required subsequent user action>
-Then <observable system outcome>
+Step :
+1. Buka Aplikasi
+2. Pengguna berada di halaman Beranda
+3. Pengguna memilih menu yang dituju
+4. Pengguna memilih opsi yang tersedia
+5. Pengguna menekan tombol mulai
+6. Pengguna menyetujui syarat dan ketentuan
+7. Pengguna menekan tombol Lanjut
+8. Pengguna memilih salah satu pilihan yang tersedia
+9. Pengguna mengisi form sesuai data pengujian
+10. Pengguna memilih periode atau opsi yang diperlukan
+11. Pengguna mengisi data tambahan yang bersifat opsional jika diperlukan oleh skenario
+12. Pengguna menekan tombol Lanjut
+13. Pengguna memilih data yang diperlukan pada halaman berikutnya
+14. Pengguna melakukan konfirmasi
+15. Pengguna melakukan aksi untuk melanjutkan transaksi
+16. Pengguna memasukkan kredensial atau autentikasi yang valid
+```
+
+Gherkin: 
+```text
+Feature: Proses transaksi
+
+  Scenario: Pengguna berhasil melanjutkan proses transaksi
+    Given pengguna berada di halaman Beranda
+    When pengguna memulai proses transaksi yang dipilih
+    And pengguna menyetujui Syarat dan Ketentuan
+    And pengguna mengisi data yang diperlukan
+    And pengguna memilih opsi dan data yang dibutuhkan
+    And pengguna melakukan konfirmasi transaksi
+    And pengguna melakukan autentikasi dengan kredensial yang valid
+    Then pengguna dapat melanjutkan proses transaksi
+    
 ```
 
 ## 9. Security
@@ -475,12 +507,12 @@ and put the button behavior in Expected.
 
 Convert:
 
-"Pastikan error Nama tabungan wajib diisi muncul"
+"Pastikan error test field wajib diisi muncul"
 
 into:
 
-"1. Pengguna berada di halaman Tentukan Target dan Periode
- 2. Pengguna membiarkan field Nama Tabungan kosong
+"1. Pengguna berada di halaman kedua
+ 2. Pengguna membiarkan field testfield kosong
  3. Pengguna menekan tombol Lanjut"
 
 Expected contains the validation message and blocked navigation.
@@ -510,8 +542,8 @@ Good:
 2. Pengguna menekan tombol Lanjut
 
 Avoid:
-1. Pengguna mengisi Nama Tabungan
-2. Pengguna mengisi Nominal Target
+1. Pengguna mengisi Nama 
+2. Pengguna mengisi Nominal
 3. Pengguna memilih Jangka Waktu
 4. Pengguna mengisi Setoran Awal
 5. Pengguna menekan tombol Lanjut
