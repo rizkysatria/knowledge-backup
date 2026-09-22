@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QA Source Analysis Contract",
+  "type": "object",
+  "required": ["status", "source", "summary", "screens", "requirements", "unknowns"],
+  "properties": {
+    "status": {"type": "string", "enum": ["DRAFT", "CHANGES_REQUESTED", "APPROVED"]},
+    "source": {"type": "object"},
+    "summary": {"type": "string"},
+    "screens": {"type": "array"},
+    "requirements": {"type": "array"},
+    "unknowns": {"type": "array"}
+  }
+}

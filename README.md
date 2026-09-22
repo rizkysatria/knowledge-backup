@@ -1,14 +1,15 @@
-# QA Engineering Knowledge Base
+# QA Project Knowledge Pack
 
-Reusable skills, rules, context, and templates for QA engineering and AI-assisted testing workflows.
+This pack is intended for a ChatGPT Project used to compare a modular QA knowledge setup with the legacy QA Pack.
 
-## Structure
+## Recommended Project Sources for the compact setup
 
-```text
-context/    Background and engineering context
-skills/     Task-specific methods
-rules/      Mandatory standards and quality gates
-templates/  Output formats
-```
+1. QA_PROJECT_KNOWLEDGE.md
+2. QA_INSTRUCTIONS.md
+3. docs/ARCHITECTURE.md
 
-The repository is intentionally product-agnostic. Project-specific structures, screen names, business rules, credentials, URLs, and implementation details belong in the target project, not here.
+The `source-originals/`, `rules/`, `skills/`, `schemas/`, and `templates/` folders are included for traceability and later modular migration. They do not all need to be uploaded to the Project when testing the compact setup.
+
+## Test flow
+
+Source -> Analysis.md -> Human Review -> APPROVED -> testcase.json

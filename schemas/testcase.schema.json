@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QA Test Case",
+  "type": "object",
+  "required": ["test_cases"],
+  "properties": {
+    "test_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tc_no", "case", "menu_module", "scenario", "pre_condition", "step", "gherkin", "expected"],
+        "properties": {
+          "tc_no": {"type": "string"},
+          "case": {"type": "string", "enum": ["Positive", "Negative"]},
+          "menu_module": {"type": "string"},
+          "scenario": {"type": "string"},
+          "pre_condition": {"type": "string"},
+          "step": {"type": "array"},
+          "gherkin": {"type": "string"},
+          "expected": {"type": "array"}
+        }
+      }
+    }
+  }
+}
