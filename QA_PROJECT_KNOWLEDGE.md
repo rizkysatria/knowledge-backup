@@ -792,11 +792,30 @@ Expected results must be observable and testable. Avoid vague statements such as
 
 ## 7. Independence
 
-Keep test cases independent where practical. Document unavoidable dependencies in Pre-condition or Notes.
+Every test case must be independently executable.
+
+- A test case must not depend on another test case having been executed.
+- Required navigation and user actions must be included in Step.
+- Pre-condition may contain only existing state, data, access, configuration, or setup.
+- Do not use Pre-condition to hide journey dependencies.
+- If a required setup state cannot be reached through the supported journey, preserve it as an explicit setup requirement or source gap rather than inventing a workaround.
 
 ## 8. Gherkin
 
 Gherkin must stay aligned with Scenario, Step, and Expected. Gherkin should express behavior, not implementation details.
+
+### Gherkin Reusability
+
+Gherkin should represent reusable business behavior rather than reproduce every low-level UI action from Step.
+
+- Given represents the applicable feature entry point.
+- When / And represents meaningful reusable business actions.
+- Do not unnecessarily split one reusable business action into multiple low-level UI actions.
+- When the same business flow is used by multiple test cases, keep the Gherkin wording consistent and reusable.
+- Gherkin does not need to map 1:1 to every manual Step.
+- Gherkin must still represent the complete business flow relevant to the scenario.
+- Avoid locator, API, or platform-specific implementation details in Gherkin.
+- Then represents the scenario-specific observable outcome.
 
 ## 9. Security
 
@@ -1049,7 +1068,10 @@ Step :
 
 The items `Pastikan ...` and system responses above belong primarily in **Expected**, while **Step** should describe the tester/user actions and journey.
 
-The Step should also remain scoped to the scenario. A validation case does not need to repeat the entire end-to-end journey if the applicable entry point can be established in Pre-condition; include only the navigation/actions needed to reach and execute the scenario.
+The Step should remain scoped to the scenario while still being independently executable.
+A validation case must include the navigation and user actions required to reach the target scenario from the applicable journey entry point.
+Do not use Pre-condition to establish a screen or navigation state that can be reached through normal user interaction.
+Pre-condition should only establish state, data, access, configuration, or setup that already exists before execution starts.
 
 ## 13. Expected Result Language
 
