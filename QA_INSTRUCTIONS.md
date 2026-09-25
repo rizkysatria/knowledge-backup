@@ -15,6 +15,52 @@ The modular pack separates work into small, composable units:
 
 The current task source (PRD, user story, Figma, SVG, screenshot, API contract, or observed behavior) remains the primary source of truth.
 
+## TEST CASE GENERATION HARD GATE
+
+When the user requests:
+- buat testcase
+- generate testcase
+- buat TC
+- generate TC
+- bikin test case
+- create test cases
+
+the task MUST be classified as TEST CASE GENERATION.
+
+Before generating any testcase, MUST:
+
+1. Load:
+   - `skills/testcase-generation.skill.md`
+   - `rules/testcase-generation.rules.md`
+   - `schemas/testcase.schema.json`
+   - applicable testcase template
+2. Identify the latest approved source analysis/synthesis.
+3. Check:
+   - `artifact_status`
+   - `qa_readiness`
+   - `testcase_generation_allowed`
+
+Generation is allowed ONLY when:
+
+artifact_status = APPROVED
+qa_readiness = READY
+testcase_generation_allowed = true
+
+If any condition is not satisfied:
+- DO NOT generate final test cases.
+- DO NOT infer approval from file existence.
+- DO NOT infer approval from WBS.
+- DO NOT infer approval from previous assistant output.
+- DO NOT downgrade the source to "good enough".
+- Report the blocking status and required next action.
+
+WBS is NOT a behavior source.
+WBS may only be used as a coverage cross-check.
+
+Behavior, navigation, validation, expected result, test data,
+state transition, and recovery behavior MUST come from the
+approved analysis/synthesis.
+
 ---
 
 ## 1. Operating Model
@@ -39,9 +85,24 @@ Never use a generic assumption to override source evidence.
 
 ### Evidence discipline
 
-Do not invent requirements, UI behavior, business rules, validation limits, screens, navigation, states, test results, evidence, dates, status, assignees, or implementation details.
+Do not invent requirements, UI behavior, business rules, validation limits,
+screens, navigation, states, test results, evidence, dates, status,
+assignees, or implementation details.
 
-When the source does not provide enough evidence, record the item as unknown, open question, or requirement-dependent. Surface source conflicts instead of silently resolving them.
+When the source does not provide enough evidence, record the item as
+unknown, open question, or requirement-dependent. Surface source conflicts
+instead of silently resolving them.
+
+### Evidence-Linked Clarification
+
+For source/user-story analysis workflows:
+
+- Material Unknown, Conflict, Ambiguity, or Requirement Gap must be converted
+  into traceable clarification questions.
+- Clarification must preserve source evidence and QA impact.
+- Unresolved clarification must remain unresolved and must not become
+  testcase conditions.
+- Source synthesis must preserve clarification provenance and resolution status.
 
 ---
 
@@ -95,11 +156,47 @@ Use this route only when the requested deliverable is test cases.
 - `schemas/testcase.schema.json`
 - `templates/testcase-template.json`
 
+### Generation Preconditions
+
+Before generating test cases, verify all of the following:
+
+- `artifact_status = APPROVED`
+- `qa_readiness = READY`
+- `testcase_generation_allowed = true`
+
+If any required condition is missing, false, or unresolved:
+
+- Do not generate final test cases.
+- Do not infer or assume the missing status.
+- Do not use WBS as a substitute for approved analysis.
+- Report the blocking condition and required next action.
+
+`WBS` is a coverage-planning artifact only. It is not an authoritative source for behavior, navigation, validation, test data, expected result, state transition, or recovery flow.
+
 ### Required process
 
 `Approved analysis → flow and UI inventory → scenarios → test cases → second coverage review → schema validation`
 
 Cover supported positive and negative behavior, complete journeys, navigation, state changes, validation, alternate outcomes, retry/recovery, and meaningful dependencies. Apply exact boundary testing only when an exact source-supported limit exists.
+
+### Source Confidence Rules
+
+Only behavior explicitly supported by the APPROVED analysis may become a concrete testcase condition.
+
+Do not convert the following into concrete testcase behavior:
+
+- `Unknown`
+- `Conflicting`
+- `Partially Confirmed`
+- `Clarification Required`
+- `Requirement-dependent`
+
+If a state, trigger, setup, navigation, validation, test data, or expected result cannot be reached or determined deterministically from the approved source:
+
+- Do not invent it.
+- Do not infer implementation behavior.
+- Do not create a fake pre-condition to reach the state.
+- Preserve it as a coverage gap or clarification item.
 
 ### Field conventions
 
@@ -110,6 +207,28 @@ Cover supported positive and negative behavior, complete journeys, navigation, s
 - Expected results are Bahasa Indonesia unless the user requests another language.
 - Gherkin must align with the scenario, steps, and expected result.
 - Do not include execution results or evidence for unexecuted cases.
+
+### Step Execution Rule
+
+Every testcase Step must be independently executable.
+
+Step must explicitly describe:
+
+`Entry Point → Required Navigation → User/Tester's Action → Trigger`
+
+Do not use shortcuts such as:
+
+- "ikuti flow"
+- "ikuti alur"
+- "lanjutkan proses"
+- "lakukan proses seperti biasa"
+- "sampai halaman..."
+- "buka halaman tersebut"
+- "gunakan alur sebelumnya"
+
+Navigation must not be hidden inside `pre_condition`.
+
+System responses, validation results, and observable outcomes belong in `expected`, not `step`.
 
 Before delivery, validate JSON against `schemas/testcase.schema.json` and perform the required second coverage review against the approved flow and UI inventory.
 
@@ -144,7 +263,7 @@ Before delivery, confirm:
 - No unsupported behavior or metadata was added.
 - The relevant template and schema are preserved.
 - The output is traceable to its source.
-- Test cases, when generated, use approved analysis and passed the two-pass coverage review.
+- Test cases, when generated, use approved analysis, pass the generation preconditions, contain independently executable Steps, and pass the two-pass coverage review.
 
 ## 7. Maintenance
 

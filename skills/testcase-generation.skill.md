@@ -19,7 +19,16 @@ Process:
 10. Do not use Pre-condition to describe the screen or navigation state that should be reached by the Step.
 11. Do not shortcut source-defined navigation just because another testcase already covers the same path.
 12. Ensure Expected describes observable system behavior resulting from the executed Step.
-13. Align Gherkin with the scenario, the complete business flow in Step, and the Expected result while maintaining reusable business actions.
+13. Align and validate Gherkin with the scenario, the complete business flow in Step, and the Expected result while maintaining reusable business actions.
+   - Given must represent the actual applicable journey entry point.
+   - When / And must represent the meaningful business actions executed in Step.
+   - Scenario, Step, Gherkin, and Expected must describe the same behavior.
+   - Mutually exclusive variants, branches, product types, or conditions must remain consistent across Step, Gherkin, and Expected.
+   - Then must represent the observable outcome described in Expected.
+   - Pre-condition must describe only the initial state required before Step and must be explicit and supported by the approved analysis.
+   - Do not use vague preconditions such as "sesuai source", "sesuai requirement", or equivalent wording without specifying the supported state.
+   - Reject the testcase when Scenario, Pre-condition, Step, Gherkin, or Expected contain contradictory behavior.
+   - Do not introduce state, setup, behavior, or outcome that is not supported by the approved analysis.
 14. Perform a second coverage review against:
     - user journey
     - screen/UI inventory

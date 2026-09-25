@@ -368,6 +368,75 @@ Questions should identify exactly what information is required to remove the amb
 
 ---
 
+## Evidence-Linked Clarification Synthesis
+
+When consolidating source analyses, preserve every material Unknown, Conflict, Ambiguity, Requirement Gap, or unsupported assumption that can affect QA coverage.
+
+For each material clarification item:
+
+1. Preserve the clarification question from the source analysis.
+2. Preserve the supporting source evidence/reference.
+3. Preserve conflicting evidence when multiple sources disagree.
+4. Preserve the QA impact of the unresolved item.
+5. Preserve the resolution status:
+   - Unknown
+   - Conflicting
+   - Ambiguous
+   - Clarification Required
+   - Resolved
+6. Do not resolve conflicts during synthesis unless the higher-precedence source explicitly resolves them.
+7. Do not convert inferred or partially confirmed behavior into confirmed requirements.
+8. Do not remove a clarification merely because another source does not mention the issue.
+9. If multiple source analyses identify the same gap, consolidate them into one clarification item while preserving all relevant source references.
+10. If two clarification items appear similar but have different QA impacts or different source evidence, keep them separate.
+
+### Recommended Clarification Output
+
+Use:
+
+| # | Clarification Question | Source Evidence | Conflict / Gap | QA Impact | Status |
+|---|---|---|---|---|---|
+| 1 | <question> | <source/page/section/line> | <conflict or missing evidence> | <impact to QA coverage> | <status> |
+
+### Clarification Priority
+
+When useful, classify unresolved items:
+
+#### P0 — Blocking for Test Case Generation
+
+Use when unresolved clarification can materially change:
+- user journey / testcase flow;
+- expected result;
+- validation;
+- boundary;
+- calculation;
+- state transition;
+- eligibility;
+- required testcase coverage.
+
+#### P1 — Important for Coverage
+
+Use when unresolved clarification affects meaningful QA coverage but does not necessarily block the complete testcase scope.
+
+### Synthesis Decision
+
+The synthesis must explicitly state whether each material clarification:
+
+- remains unresolved;
+- has been resolved by a higher-precedence source;
+- remains conflicting across sources; or
+- is no longer relevant to the intended QA scope.
+
+Unresolved items must remain gaps and must not be converted into concrete testcase conditions.
+
+### Traceability Requirement
+
+Every material clarification in the synthesis must be traceable back to one or more source-analysis inputs.
+
+Do not invent source references, answers, priorities, or resolution status.
+
+---
+
 # QA Readiness
 
 QA Readiness is a generation gate that determines whether it is safe

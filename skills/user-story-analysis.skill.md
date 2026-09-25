@@ -21,6 +21,71 @@ Analyze for:
 - constraints
 - unknowns / open questions
 
+## Evidence-Linked Clarification Analysis
+
+When analysis identifies an **Unknown, Conflict, Ambiguity, Requirement Gap, or unsupported assumption** that can affect QA coverage, do not only list it as an open question. Convert it into an explicit, traceable clarification item.
+
+For every material clarification:
+
+1. Preserve the original source terminology and wording where relevant.
+2. State the clarification as a concrete, actionable question.
+3. Attach the closest available source reference, such as page, section, heading, or source line.
+4. Explain why the clarification matters from a QA perspective.
+5. Identify the potential QA impact when applicable:
+   - flow / journey
+   - validation
+   - boundary
+   - calculation
+   - state transition
+   - expected result
+   - UI / interaction
+   - integration / dependency
+   - notification
+6. Assign a priority when useful:
+   - **P0 — Blocking untuk Test Case Generation:** unresolved item can materially change expected behavior, testcase flow, boundary, calculation, state, or required coverage.
+   - **P1 — Important untuk Coverage:** unresolved item affects meaningful QA coverage but does not necessarily block all testcase generation.
+7. Do not resolve the clarification through assumption, inference, or generic product knowledge.
+
+### Recommended Clarification Format
+
+Use a traceable Markdown table for material clarification questions:
+
+| # | Clarification Question | Referensi Source | Kenapa perlu diklarifikasi |
+|---|---|---|---|
+| 1 | <concrete question> | <page/section/line/source evidence> | <specific QA impact> |
+
+When there are material blockers, add a priority section:
+
+### Clarification Priority
+
+#### P0 — Blocking untuk Test Case Generation
+
+| # | Area | Impact QA |
+|---|---|---|
+| <#> | <area> | <impact> |
+
+#### P1 — Important untuk Coverage
+
+| # | Area | Impact QA |
+|---|---|---|
+| <#> | <area> | <impact> |
+
+### QA Decision
+
+Explicitly state that unresolved items remain **Unknown / Conflicting / Ambiguous** and must not be converted into concrete testcase conditions until the source requirement is clarified or approved.
+
+The clarification section is an analysis artifact, not a testcase list. Do not invent the answer to any clarification question.
+
+### Evidence and Traceability Rules
+
+- Every material clarification must be traceable to the source evidence that caused the question.
+- If multiple source statements conflict, reference all relevant statements rather than selecting one silently.
+- If the source does not provide sufficient evidence for a reference, mark the reference as unavailable rather than inventing one.
+- A clarification question must describe the gap; it must not introduce a new requirement.
+- Keep source facts, interpretation, and clarification needs distinguishable.
+- Prefer the smallest source reference that fully supports the identified gap.
+- Preserve conflicts even when one interpretation appears more likely.
+
 ## Rules
 
 - Preserve the source wording and terminology where possible.
